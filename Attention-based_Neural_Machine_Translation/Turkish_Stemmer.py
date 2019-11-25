@@ -8,7 +8,7 @@ stemmer = TurkishStemmer()
 def stem(x):
     """this method takes Turkish word and return the list of word and it's suffixes"""
     lst=[]
-    x=re.sub("[\+\-\!\?\/\.\,'()\[\]\*]","",x).strip()
+    x=re.sub('[^A-Za-z0-9 üöçşığ]+',"",x).strip()
     while len(x)>0:
         stemmezied=stemmer.stem(x)
         x_post=re.sub(stemmezied,"",x)
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         if len(sentence_post)>1:text_post.append(" ".join(sentence_post))#;print(x,"=>\n"," ".join(sentence_post),"\n","".join(["="]*40))
         else:text_post.append("".join(sentence_post))#;print(x,"=>\n",sentence_post,"\n","".join(["="]*40))
     
-    f_output=open(args.input_file+".stemmerized","w")
+    f_output=open(args.input_file.split("/")[-1]+".stemmerized","w")
     for sentence in text_post:
         f_output.write(sentence.strip())
         f_output.write('\n')
